@@ -1,0 +1,31 @@
+{
+  "name": "newsreader",
+  "version": "1.0.0",
+  "description": "Newsreader app",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pavlo-yuriychuk/newsreader.git"
+  },
+  "keywords": [
+    "newsreader",
+    "proxy",
+    "feeds"
+  ],
+  "author": "Pavlo Iuriichuk <pluccky@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pavlo-yuriychuk/newsreader/issues"
+  },
+  "homepage": "https://github.com/pavlo-yuriychuk/newsreader",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "feedparser": "^1.0.0",
+    "request": "^2.53.0",
+    "serve-static": "^1.9.1",
+    "underscore": "^1.8.2"
+  }
+}

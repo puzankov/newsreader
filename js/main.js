@@ -1,10 +1,6 @@
 (function (window, $, _) {
 
     var templates = {};
-    var feeds = {
-        'habr': 'http://habrahabr.ru/rss/feed/posts/c8cc8e394b19eb82b62452acf4c72e72/',
-        'pravda': 'http://www.pravda.com.ua/rss/'
-    }
 
     function loadTemplate(id) {
         if (id in templates) {
@@ -13,38 +9,24 @@
         templates[id] = _.template($('#' + id).text());
     }
 
-    function parseRSS(data) {
-        var $xml = $.parseXML(data);
-        return $xml.find('channel').children('item').map(function (index, el) {
-            return {
-                title: el.find('title').text(),
-                author: el.find('author').text(),
-                description: el.find('description').text(),
-                link: el.find('link').text()
-            };
-        }).get();
-    }
-
     function loadRSS(url) {
-        return $.ajax({
+        $.ajax({
             url: url,
             method: 'GET',
-            converters: {
-                'text xml': parseRSS
-            }
+            dataType: 'json'
+        }).success(function (data) {
+            $('#feed').empty().html(templates['news-items'](data));
         });
     };
 
     $(function () {
         loadTemplate('news-items');
+        if (window.location.hash.length > 1) {
+            loadRSS('http://localhost:8080?kind=' + window.location.hash.substring(1));
+        }
         $(window).on('hashchange', function (e) {
             var hash = window.location.hash.substring(1);
-
-            if (hash in feeds) {
-                loadRSS(feeds[hash]).success(function (data) {
-                    $('#feed').empty().html(templates['news-items'](data));
-                });
-            }
+            loadRSS('http://localhost:8080?kind=' + hash);
         });
     });
 })(window, jQuery, _);
