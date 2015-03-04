@@ -25,11 +25,11 @@
     $(function () {
         loadTemplate('news-items');
         if (window.location.hash.length > 1) {
-            loadRSS('http://localhost:8080?kind=' + window.location.hash.substring(1));
+            loadRSS('/rss/data/?kind=' + window.location.hash.substring(1));
         }
         $(window).on('hashchange', function (e) {
             var hash = window.location.hash.substring(1);
-            loadRSS('http://localhost:8080?kind=' + hash);
+            loadRSS('/rss/data/?kind=' + hash);
         });
     });
 })(window, jQuery, _);
