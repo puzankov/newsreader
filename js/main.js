@@ -6,7 +6,9 @@
         if (id in templates) {
             return;
         }
-        templates[id] = _.template($('#' + id).text());
+        var $templateEl = $('#' + id);
+        templates[id] = _.template($templateEl.text());
+        $templateEl.remove();
     }
 
     function loadRSS(url) {
@@ -16,6 +18,7 @@
             dataType: 'json'
         }).success(function (data) {
             $('#feed').empty().html(templates['news-items'](data));
+            data = null;
         });
     };
 
