@@ -14,13 +14,13 @@ var feeds = {
         updatedAt: null,
         items: null
     },
-    'pravda': {
-        url: 'http://www.pravda.com.ua/rss/',
+    'sm': {
+        url: 'http://www.smashingmagazine.com/feed/',
         updatedAt: null,
         items: null
     },
-    'nvua': {
-        url: 'http://nv.ua/xml/rss.html',
+    'fe': {
+        url: 'http://frontendfront.com/feed/stories',
         updatedAt: null,
         items: null
     }
@@ -47,15 +47,15 @@ function fetchFeedFromRSS(url, cb) {
     feedparser.on('error', cb);
 
     feedparser.on('readable', function() {
-      var stream = this;
-      var meta = this.meta;
-      var item;
+        var stream = this;
+        var meta = this.meta;
+        var item;
 
-      while (item = stream.read()) {
+        while (item = stream.read()) {
           if (item) {
               items.push(_.pick(item, "title", "summary", "guid", "description", "author", "pubDate", "image"));
-          };
-      };
+          }
+        }
     });
 
     feedparser.on('end', function () {
